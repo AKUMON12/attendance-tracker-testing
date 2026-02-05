@@ -88,13 +88,13 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 
 This system bridges the gap between administrative oversight and employee accountability. By leveraging **JSON Web Tokens (JWT)**, it ensures that attendance data is authentic and tamper-proof.
 
-### 💎 Key Features
+### 🚀 Key Features
 
-- **Secure Authentication:** Multi-role (Admin/User) login system with `bcrypt` password hashing.
-- **Precision Tracking:** Automated "Clock-In" and "Clock-Out" logic that prevents duplicate entries and spoofing.
-- **Live Status:** Real-time user status (Present/Absent) synchronization with MongoDB.
-- **Smart Analytics:** Automatic calculation of total work hours per shift.
-- **Modern Stack:** Powered by Nuxt 4, Nitro, and Mongoose for a seamless developer experience.
+- **🔒 Secure Auth:** JWT-based authentication with `bcryptjs` password encryption.
+- **⚡ Real-time Tracking:** Instant "Clock-In" and "Clock-Out" with server-side time validation.
+- **📊 Automatic Analytics:** Built-in logic to calculate total shift duration (Decimal hours).
+- **🛠️ Robust API:** Follows RESTful principles using Nuxt Nitro's event-driven handlers.
+- **📱 Modern Stack:** Leveraging Nuxt 4, MongoDB Atlas, and Mongoose for rapid development.
 
 ---
 
