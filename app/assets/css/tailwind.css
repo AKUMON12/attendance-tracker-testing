@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    /* ... add your shadcn variables ... */
+
+    /* YOUR BRAND COLORS */
+    --skloud-yellow: 48 100% 67%;
+    --skloud-pink: 330 81% 60%;
+    --skloud-blue: 199 89% 48%;
+    --skloud-purple: 262 83% 58%;
+
+    --radius: 0.5rem;
+  }
+}

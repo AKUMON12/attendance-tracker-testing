@@ -1,13 +1,15 @@
 import type { Config } from 'tailwindcss'
+import tailwindcssAnimate from 'tailwindcss-animate' // 1. Add this import
 
 export default {
     darkMode: ['class'],
     content: [
+        // These are relative to the project root
         './app/**/*.{vue,js,ts}',
-        './components/**/*.{vue,js,ts}',
-        './layouts/**/*.vue',
-        './pages/**/*.vue',
-        './plugins/**/*.{js,ts}',
+        './app/components/**/*.{vue,js,ts}',
+        './app/layouts/**/*.vue',
+        './app/pages/**/*.vue',
+        // Keep the root files
         './nuxt.config.{js,ts}',
     ],
     prefix: '',
@@ -166,5 +168,5 @@ export default {
             },
         },
     },
-    plugins: [require('tailwindcss-animate')],
+    plugins: [tailwindcssAnimate], // 2. Change require() to the variable name
 } satisfies Config

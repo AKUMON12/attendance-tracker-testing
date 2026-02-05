@@ -1,7 +1,6 @@
 import { fileURLToPath } from 'node:url'
 
 export default defineNuxtConfig({
-  compatibilityDate: '2026-02-05',
 
   runtimeConfig: {
     mongodbUri: process.env.MONGODB_URI,
@@ -14,5 +13,27 @@ export default defineNuxtConfig({
     ]
   },
 
-  modules: ['@nuxtjs/tailwindcss', 'shadcn-nuxt', 'lucide-nuxt']
+  modules: ['@nuxtjs/tailwindcss', 'shadcn-nuxt', 'lucide-nuxt'],
+
+  // Tell Tailwind to use your specific config file
+  tailwindcss: {
+    exposeConfig: true,
+    viewer: true,
+  },
+
+  // Nuxt 4 directory structure compatibility
+  future: {
+    compatibilityVersion: 4,
+  },
+
+  shadcn: {
+    /**
+     * In Nuxt 4, prefixing with ./app is usually best for the module
+     * to find your shadcn components correctly.
+     */
+    componentDir: './app/components/ui',
+    prefix: ''
+  },
+
+  compatibilityDate: '2024-04-03'
 })
