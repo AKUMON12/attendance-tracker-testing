@@ -1,0 +1,1 @@
+// move your code here from ProtectedRoute.vue
