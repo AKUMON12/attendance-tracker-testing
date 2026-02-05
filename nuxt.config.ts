@@ -12,5 +12,7 @@ export default defineNuxtConfig({
     plugins: [
       fileURLToPath(new URL('./server/plugins/mongodb.ts', import.meta.url))
     ]
-  }
+  },
+
+  modules: ['@nuxtjs/tailwindcss', 'shadcn-nuxt', 'lucide-nuxt']
 })
