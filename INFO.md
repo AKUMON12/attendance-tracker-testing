@@ -27,3 +27,5 @@ attendance-tracker
 ├── tailwind.config.ts        # Tailwind configuration
 └── ...
 ```
+
+on the UI part, open lovable, copy file name, and code the paste to copilot until it's done.
