@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Avatar, AvatarImage, AvatarFallback } from "shadcn-vue/avatar"
+import { AvatarFallback, AvatarImage, AvatarRoot as Avatar } from 'radix-vue'
 </script>
 
 <template>

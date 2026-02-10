@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "shadcn-vue/accordion"
+import { AccordionContent, AccordionHeader, AccordionItem, AccordionRoot as Accordion, AccordionTrigger } from 'radix-vue'
+import { ChevronDown } from 'lucide-vue-next'
 </script>
 
 <template>

@@ -1,18 +1,10 @@
 <script setup lang="ts">
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "shadcn-vue/card"
+import { cn } from '@/lib/utils'
+const props = defineProps<{ class?: string }>()
 </script>
 
 <template>
-  <Card>
-    <CardHeader>
-      <CardTitle>Project Status</CardTitle>
-      <CardDescription>Overview of current progress</CardDescription>
-    </CardHeader>
-    <CardContent>
-      <p>Tasks completed: 12/20</p>
-    </CardContent>
-    <CardFooter>
-      <Button variant="secondary">View Details</Button>
-    </CardFooter>
-  </Card>
+  <div :class="cn('rounded-xl border bg-card text-card-foreground shadow', props.class)">
+    <slot />
+  </div>
 </template>

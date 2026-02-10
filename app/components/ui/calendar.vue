@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { Calendar } from "shadcn-vue/calendar"
+import { CalendarRoot, type CalendarRootProps } from 'radix-vue'
+const props = defineProps<CalendarRootProps>()
 </script>
 
 <template>
-  <Calendar />
+  <CalendarRoot v-bind="props" class="p-3">
+    </CalendarRoot>
 </template>

@@ -1,14 +1,12 @@
 <script setup lang="ts">
-import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "shadcn-vue/collapsible"
+import { CollapsibleRoot, CollapsibleTrigger, CollapsibleContent } from 'radix-vue'
+
+// Radix uses 'CollapsibleRoot', but we can export/use it as 'Collapsible'
+const Collapsible = CollapsibleRoot
 </script>
 
 <template>
-  <Collapsible>
-    <CollapsibleTrigger>
-      <button class="btn">Toggle</button>
-    </CollapsibleTrigger>
-    <CollapsibleContent>
-      <p>This is hidden content</p>
-    </CollapsibleContent>
-  </Collapsible>
+  <CollapsibleRoot v-slot="{ open }">
+    <slot :open="open" />
+  </CollapsibleRoot>
 </template>
