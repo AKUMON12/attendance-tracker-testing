@@ -22,3 +22,15 @@ export const useIsMobile = () => {
 
     return isMobile
 }
+
+// Usage:
+// <script setup lang = "ts" >
+// const isMobile = useIsMobile()
+//     </script>
+
+//     < template >
+//     <div>
+//     <p v -if= "isMobile" > Mobile view </p>
+//         < p v -else> Desktop view </p>
+//             </div>
+//             </template>

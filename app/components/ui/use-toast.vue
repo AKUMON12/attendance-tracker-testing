@@ -1,15 +1,27 @@
-<script setup lang="ts">
-const { addToast, toasts } = useToast()
+import { ref } from "vue"
 
-function showToast() {
-  addToast({ title: 'Hello!', description: 'This is a toast message.' })
+interface Toast {
+  id: string
+  title?: string
+  description?: string
+  action?: any
+  variant?: "default" | "destructive"
 }
-</script>
 
-<template>
-  <button @click="showToast">Show Toast</button>
-  <div v-for="t in toasts" :key="t.id">
-    <p>{{ t.title }}</p>
-    <p>{{ t.description }}</p>
-  </div>
-</template>
+const toasts = ref<Toast[]>([])
+
+function addToast(toastData: Omit<Toast, "id">) {
+  const id = Math.random().toString(36).slice(2)
+  toasts.value.push({ id, ...toastData })
+  // auto-remove after 5s
+  setTimeout(() => {
+    toasts.value = toasts.value.filter(t => t.id !== id)
+  }, 5000)
+}
+
+export function useToast() {
+  return {
+    toasts,
+    addToast,
+  }
+}
