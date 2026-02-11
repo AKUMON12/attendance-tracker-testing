@@ -1,44 +1,35 @@
-import { fileURLToPath } from 'node:url'
+// Add this line at the very top
+import { defineNuxtConfig } from 'nuxt/config'
+
+declare module '@nuxt/schema' {
+  interface NuxtConfig {
+    shadcn?: {
+      componentDir?: string
+      prefix?: string
+    }
+  }
+}
 
 export default defineNuxtConfig({
+  // ... existing config
+  modules: [
+    '@nuxtjs/tailwindcss',
+    'lucide-nuxt',
+    '@nuxtjs/color-mode'
+  ],
 
-  runtimeConfig: {
-    mongodbUri: process.env.MONGODB_URI,
-    jwtSecret: process.env.JWT_SECRET, // This picks up the key from .env
-  },
-
-  nitro: {
-    plugins: [
-      fileURLToPath(new URL('./server/plugins/mongodb.ts', import.meta.url))
-    ]
-  },
-
-  modules: ['@nuxtjs/tailwindcss', 'shadcn-nuxt', 'lucide-nuxt', '@nuxtjs/color-mode'],
-
-  // Tell Tailwind to use your specific config file
-  tailwindcss: {
-    exposeConfig: true,
-    viewer: true,
-  },
-
-  // Nuxt 4 directory structure compatibility
-  future: {
-    compatibilityVersion: 4,
-  },
-
-  shadcn: {
-    /**
-     * In Nuxt 4, prefixing with ./app is usually best for the module
-     * to find your shadcn components correctly.
-     */
-    componentDir: './app/components/ui',
-    prefix: ''
-  },
-
-  // Color mode configuration
-  colorMode: {
-    classSuffix: ''
-  } as any,
-
-  compatibilityDate: '2024-04-03'
+  components: [
+    {
+      path: '~/components/ui',
+      // This ensures components are registered properly
+      extensions: ['.vue'],
+      pathPrefix: false,
+      global: true,
+    },
+    {
+      path: '~/components',
+      pathPrefix: false,
+      global: true,
+    },
+  ],
 })

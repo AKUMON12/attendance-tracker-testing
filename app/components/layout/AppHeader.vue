@@ -1,14 +1,11 @@
 <script setup lang="ts">
 import { Bell, Search } from "lucide-vue-next"
-import { SidebarTrigger } from "@/components/ui/sidebar" 
-import Input from "@/components/ui/input/Input.vue"
-import Button from "@/components/ui/button/Button.vue"
+// REMOVED: import { SidebarTrigger } from "@/components/ui/sidebar" 
+// REMOVED: import Input from "@/components/ui/input/Input.vue"
+// REMOVED: import Button from "@/components/ui/button/Button.vue"
 import { useNow, useDateFormat } from '@vueuse/core'
 
-// VueUse handles the reactive date and updates automatically
 const now = useNow()
-
-// These reactive strings will update every second/minute automatically
 const formattedDate = useDateFormat(now, 'ddd, MMM D')
 const formattedTime = useDateFormat(now, 'hh:mm A')
 </script>
