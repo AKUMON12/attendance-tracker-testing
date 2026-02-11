@@ -1,21 +1,26 @@
 <script setup lang="ts">
 import { useAuth } from "@/composables/useAuth"
 import { useRoute, useRouter } from "vue-router"
-import Skeleton from "@/components/ui/Skeleton.vue"
+import Skeleton from "@/components/ui/skeleton.vue" // Fixed casing
 
-interface ProtectedRouteProps {
-  requireAdmin?: boolean
-}
-
-const props = defineProps<ProtectedRouteProps>()
-
+const props = defineProps<{ requireAdmin?: boolean }>()
 const { isAuthenticated, isAdmin, isLoading } = useAuth()
 const route = useRoute()
 const router = useRouter()
+
+// Handle redirects in script instead of template
+watchEffect(() => {
+  if (isLoading.value) return
+
+  if (!isAuthenticated.value) {
+    router.replace({ path: '/login', query: { from: route.fullPath } })
+  } else if (props.requireAdmin && !isAdmin.value) {
+    router.replace({ path: '/dashboard' })
+  }
+})
 </script>
 
 <template>
-  <!-- Loading state -->
   <div v-if="isLoading" class="min-h-screen flex items-center justify-center bg-background">
     <div class="space-y-4 w-full max-w-md">
       <Skeleton class="h-12 w-3/4 mx-auto" />
@@ -23,18 +28,5 @@ const router = useRouter()
       <Skeleton class="h-64 w-full" />
     </div>
   </div>
-
-  <!-- Redirect if not authenticated -->
-  <div v-else-if="!isAuthenticated">
-    <!-- programmatic redirect -->
-    {{ router.replace({ path: '/login', query: { from: route.fullPath } }) }}
-  </div>
-
-  <!-- Redirect if admin required but user is not admin -->
-  <div v-else-if="props.requireAdmin && !isAdmin">
-    {{ router.replace({ path: '/dashboard' }) }}
-  </div>
-
-  <!-- Render children if authorized -->
-  <slot v-else />
+  <slot v-else-if="isAuthenticated && (!props.requireAdmin || isAdmin)" />
 </template>

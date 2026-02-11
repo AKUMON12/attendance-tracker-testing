@@ -5,8 +5,7 @@ import { cn } from "@/lib/utils"
 
 <template>
   <caption
-    :class="cn('mt-4 text-sm text-muted-foreground', $attrs.class)"
-    v-bind="$attrs"
+    :class="cn('mt-4 text-sm text-muted-foreground', $attrs.class as string)"
   >
     <slot />
   </caption>

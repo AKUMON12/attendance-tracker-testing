@@ -1,18 +1,24 @@
 <script setup lang="ts">
-import { useToast } from "@/composables/useToast"
+// No import needed for useToast in Nuxt!
+const { toasts, addToast } = useToast()
 
-const { addToast, toasts } = useToast()
-
-function showToast() {
-  addToast({ title: "Hello!", description: "This is a toast message." })
+const show = () => {
+  addToast({ 
+    title: "Success!", 
+    description: "The toast system is live." 
+  })
 }
 </script>
 
 <template>
-  <button @click="showToast" class="btn">Show Toast</button>
+  <div class="space-y-4">
+    <button @click="show" class="bg-primary text-white px-4 py-2 rounded">
+      Test Toast
+    </button>
 
-  <div v-for="t in toasts" :key="t.id" class="p-2 border rounded mb-2">
-    <p class="font-bold">{{ t.title }}</p>
-    <p class="text-sm text-muted-foreground">{{ t.description }}</p>
+    <div v-for="t in toasts" :key="t.id" class="p-2 border rounded border-border">
+      <p class="font-bold">{{ t.title }}</p>
+      <p class="text-sm">{{ t.description }}</p>
+    </div>
   </div>
 </template>

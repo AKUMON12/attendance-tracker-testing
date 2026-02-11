@@ -13,7 +13,7 @@ export default defineNuxtConfig({
     ]
   },
 
-  modules: ['@nuxtjs/tailwindcss', 'shadcn-nuxt', 'lucide-nuxt'],
+  modules: ['@nuxtjs/tailwindcss', 'shadcn-nuxt', 'lucide-nuxt', '@nuxtjs/color-mode'],
 
   // Tell Tailwind to use your specific config file
   tailwindcss: {
@@ -34,6 +34,11 @@ export default defineNuxtConfig({
     componentDir: './app/components/ui',
     prefix: ''
   },
+
+  // Color mode configuration
+  colorMode: {
+    classSuffix: ''
+  } as any,
 
   compatibilityDate: '2024-04-03'
 })

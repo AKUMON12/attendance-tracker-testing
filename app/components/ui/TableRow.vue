@@ -5,8 +5,7 @@ import { cn } from "@/lib/utils"
 
 <template>
   <tr
-    :class="cn('border-b transition-colors data-[state=selected]:bg-muted hover:bg-muted/50', $attrs.class)"
-    v-bind="$attrs"
+    :class="cn('border-b transition-colors data-[state=selected]:bg-muted hover:bg-muted/50', $attrs.class as string)"
   >
     <slot />
   </tr>

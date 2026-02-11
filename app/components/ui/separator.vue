@@ -1,19 +1,22 @@
 <script setup lang="ts">
-import { Separator } from "shadcn-vue/separator"
+import { Separator } from 'radix-vue'
+import { cn } from '@/lib/utils'
+
+const props = defineProps<{
+  orientation?: 'horizontal' | 'vertical'
+  decorative?: boolean
+  class?: string
+}>()
 </script>
 
 <template>
-  <div class="space-y-4">
-    <p>Section 1</p>
-    <!-- Horizontal Separator -->
-    <Separator orientation="horizontal" class="shrink-0 bg-border h-[1px] w-full" />
-
-    <p>Section 2</p>
-    <!-- Vertical Separator -->
-    <div class="flex h-10 items-center space-x-4">
-      <span>Item A</span>
-      <Separator orientation="vertical" class="shrink-0 bg-border h-full w-[1px]" />
-      <span>Item B</span>
-    </div>
-  </div>
+  <Separator
+    :orientation="orientation"
+    :decorative="decorative"
+    :class="cn(
+      'shrink-0 bg-border',
+      orientation === 'horizontal' ? 'h-[1px] w-full' : 'h-full w-[1px]',
+      props.class
+    )"
+  />
 </template>

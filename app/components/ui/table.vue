@@ -3,10 +3,9 @@ import { cn } from "@/lib/utils"
 </script>
 
 <template>
-  <!-- Table -->
   <div class="relative w-full overflow-auto">
     <table
-      :class="cn('w-full caption-bottom text-sm', $attrs.class)"
+      :class="cn('w-full caption-bottom text-sm', $attrs.class as string)"
       v-bind="$attrs"
     >
       <slot />

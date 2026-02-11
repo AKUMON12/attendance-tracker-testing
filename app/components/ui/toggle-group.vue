@@ -1,38 +1,22 @@
 <script setup lang="ts">
-import { ToggleGroup, ToggleGroupItem } from "shadcn-vue/toggle-group"
+import { ToggleGroupRoot, ToggleGroupItem } from "radix-vue"
+import { cn } from "@/lib/utils"
 
-// Example state
-const selected = ref("bold")
+const props = defineProps<{
+  modelValue?: string | string[]
+  type?: 'single' | 'multiple'
+}>()
+
+const emits = defineEmits(['update:modelValue'])
 </script>
 
 <template>
-  <ToggleGroup
-    v-model="selected"
-    type="single"
-    class="flex items-center justify-center gap-1"
+  <ToggleGroupRoot
+    :model-value="modelValue"
+    @update:model-value="emits('update:modelValue', $event)"
+    :type="(type as any) || 'single'"
+    :class="cn('flex items-center justify-center gap-1', $attrs.class as string)"
   >
-    <ToggleGroupItem
-      value="bold"
-      class="inline-flex items-center justify-center rounded-sm px-3 py-1.5 text-sm font-medium
-             transition-colors data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
-    >
-      Bold
-    </ToggleGroupItem>
-
-    <ToggleGroupItem
-      value="italic"
-      class="inline-flex items-center justify-center rounded-sm px-3 py-1.5 text-sm font-medium
-             transition-colors data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
-    >
-      Italic
-    </ToggleGroupItem>
-
-    <ToggleGroupItem
-      value="underline"
-      class="inline-flex items-center justify-center rounded-sm px-3 py-1.5 text-sm font-medium
-             transition-colors data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
-    >
-      Underline
-    </ToggleGroupItem>
-  </ToggleGroup>
+    <slot />
+  </ToggleGroupRoot>
 </template>

@@ -1,46 +1,34 @@
 <script setup lang="ts">
-import {
-  Sheet,
-  SheetTrigger,
-  SheetContent,
-  SheetHeader,
-  SheetFooter,
-  SheetTitle,
-  SheetDescription,
-  SheetClose,
-  SheetOverlay,
-  SheetPortal
-} from "shadcn-vue/sheet"
+import { 
+  DialogRoot, DialogTrigger, DialogContent, DialogClose, 
+  DialogPortal, DialogOverlay, DialogTitle, DialogDescription 
+} from 'radix-vue'
+import { X } from 'lucide-vue-next'
+import { cn } from '@/lib/utils'
 
-import { X } from "lucide-vue-next"
+// Mapping the Dialog primitives to Sheet names
+const Sheet = DialogRoot
 </script>
 
 <template>
-  <Sheet>
-    <!-- Trigger -->
-    <SheetTrigger>
-      <button class="btn">Open Sheet</button>
-    </SheetTrigger>
-
-    <!-- Content -->
-    <SheetContent side="right" class="fixed inset-y-0 right-0 h-full w-3/4 border-l bg-background p-6 shadow-lg sm:max-w-sm">
-      <SheetHeader>
-        <SheetTitle>Sheet Title</SheetTitle>
-        <SheetDescription>This is a description inside the sheet.</SheetDescription>
-      </SheetHeader>
-
-      <div class="flex-1 p-4">
-        <p>Sheet body content goes here.</p>
-      </div>
-
-      <SheetFooter>
-        <button class="btn">Confirm</button>
-        <SheetClose>
-          <button class="btn-outline flex items-center gap-2">
-            <X class="h-4 w-4" /> Close
-          </button>
-        </SheetClose>
-      </SheetFooter>
-    </SheetContent>
-  </Sheet>
+  <DialogRoot>
+    <slot />
+    
+    <DialogPortal>
+      <DialogOverlay class="fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
+      <DialogContent
+        :class="cn(
+          'fixed z-50 gap-4 bg-background p-6 shadow-lg transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500 inset-y-0 right-0 h-full w-3/4 border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm',
+          $attrs.class as string
+        )"
+      >
+        <slot name="content" />
+        
+        <DialogClose class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
+          <X class="h-4 w-4" />
+          <span class="sr-only">Close</span>
+        </DialogClose>
+      </DialogContent>
+    </DialogPortal>
+  </DialogRoot>
 </template>

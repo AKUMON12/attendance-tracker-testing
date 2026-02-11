@@ -2,16 +2,19 @@
 import {
   ToastProvider,
   ToastViewport,
-  Toast,
+  ToastRoot, // In Radix, the main component is ToastRoot
   ToastTitle,
   ToastDescription,
   ToastClose,
   ToastAction
-} from "shadcn-vue/toast"
+} from "radix-vue"
 
 import { X } from "lucide-vue-next"
 
 const showToast = ref(false)
+
+// Alias ToastRoot to Toast to keep your template working
+const Toast = ToastRoot
 </script>
 
 <template>

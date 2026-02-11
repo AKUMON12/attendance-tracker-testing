@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils"
 
 <template>
   <div
-    :class="cn('animate-pulse rounded-md bg-muted', $attrs.class)"
+    :class="cn('animate-pulse rounded-md bg-muted', $attrs.class as string)"
     v-bind="$attrs"
   />
 </template>

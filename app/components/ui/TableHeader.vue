@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils"
 </script>
 
 <template>
-  <thead :class="cn('[&_tr]:border-b', $attrs.class)" v-bind="$attrs">
+  <thead :class="cn('[&_tr]:border-b', $attrs.class as string)">
     <slot />
   </thead>
 </template>

@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import { Label } from "shadcn-vue/label"
+import { Label, type LabelProps } from 'radix-vue'
+import { cn } from '@/lib/utils'
+
+const props = defineProps<LabelProps & { class?: string }>()
 </script>
 
 <template>
-  <div class="space-y-2">
-    <Label for="email">Email</Label>
-    <input
-      id="email"
-      type="email"
-      class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base
-             placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2
-             focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed
-             disabled:opacity-50 md:text-sm"
-    />
-  </div>
+  <Label
+    v-bind="props"
+    :class="cn(
+      'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70',
+      props.class
+    )"
+  >
+    <slot />
+  </Label>
 </template>
