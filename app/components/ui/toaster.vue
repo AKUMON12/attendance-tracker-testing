@@ -8,8 +8,7 @@ import {
   ToastClose
 } from "radix-vue"
 
-// Explicitly remove the import { useToast } line.
-// Nuxt finds it automatically in app/composables/useToast.ts
+// Nuxt auto-imports useToast, so this just works!
 const { toasts } = useToast()
 </script>
 
@@ -19,7 +18,11 @@ const { toasts } = useToast()
       v-for="toast in toasts"
       :key="toast.id"
       :open="toast.open"
-      class="fixed bottom-4 right-4 z-[100] flex w-full max-w-md items-center justify-between space-x-4 overflow-hidden rounded-md border bg-background p-6 shadow-lg transition-all"
+      class="fixed bottom-4 right-4 z-[100] flex w-full max-w-md items-center justify-between space-x-4 overflow-hidden rounded-md border bg-background p-6 shadow-lg transition-all data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full"
+      :class="[
+        toast.variant === 'destructive' ? 'border-destructive bg-destructive text-destructive-foreground' : 'bg-background',
+        toast.variant === 'success' ? 'border-green-500 bg-green-50 text-green-900' : ''
+      ]"
     >
       <div class="grid gap-1">
         <ToastTitle v-if="toast.title" class="text-sm font-semibold">
@@ -29,10 +32,6 @@ const { toasts } = useToast()
           {{ toast.description }}
         </ToastDescription>
       </div>
-      
-      <button v-if="toast.action" @click="toast.action" class="text-xs font-medium underline">
-        Action
-      </button>
       
       <ToastClose class="rounded-md p-1 text-foreground/50 hover:text-foreground">
         <span class="sr-only">Close</span>

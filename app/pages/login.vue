@@ -1,23 +1,16 @@
 <script setup lang="ts">
 import { Eye, EyeOff, Mail, Lock, Loader2 } from 'lucide-vue-next'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-import { Label } from '@/components/ui/label'
 
-// Apply the AuthLayout created earlier
 definePageMeta({
   layout: 'auth'
 })
 
-// State management with Vue refs
 const email = ref('')
 const password = ref('')
 const showPassword = ref(false)
 
-// Nuxt auto-imports from /composables
 const { login, isLoading } = useAuth()
-const { addToast } = useToast() // Assuming your useToast uses 'addToast' or similar
+const { addToast } = useToast()
 
 const handleSubmit = async () => {
   if (!email.value || !password.value) {
@@ -33,15 +26,14 @@ const handleSubmit = async () => {
     await login(email.value, password.value)
     addToast({
       title: 'Welcome back!',
-      description: 'You have successfully logged in.',
+      description: 'Successfully signed in.',
+      variant: 'success'
     })
-    
-    // Nuxt programmatic navigation
     await navigateTo('/dashboard')
-  } catch (error: any) {
+  } catch (error) {
     addToast({
       title: 'Login failed',
-      description: error.message || 'Invalid email or password. Please try again.',
+      description: 'Invalid email or password.',
       variant: 'destructive',
     })
   }

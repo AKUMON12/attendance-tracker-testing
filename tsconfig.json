@@ -1,11 +1,12 @@
 {
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
+    "ignoreDeprecations": "6.0",
     "baseUrl": ".",
+    "module": "ESNext",
     "paths": {
       "@/*": ["./app/*"],
       "~/*": ["./app/*"]
-    },
-    "ignoreDeprecations": "5.0"
+    }
   }
 }

@@ -1,27 +1,12 @@
 <script setup lang="ts">
 import { 
-  Users, 
-  Clock, 
-  AlertTriangle, 
-  BarChart3, 
-  Coffee,
-  TrendingUp,
-  FileText,
-  RefreshCw
+  Users, Clock, AlertTriangle, BarChart3, 
+  Coffee, TrendingUp, FileText, RefreshCw 
 } from 'lucide-vue-next'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table'
+// We only import the 'cn' utility and the composable. 
+// UI Components are auto-imported by Nuxt!
+import { cn } from '@/lib/utils' 
 
-// Use the DashboardLayout as per your structure
 definePageMeta({
   layout: 'dashboard-layout'
 })
@@ -38,7 +23,6 @@ const {
 
 const isSyncing = ref(false)
 
-// Fetch data on mount
 onMounted(() => {
   fetchUsersStatus()
   fetchStats()
@@ -53,7 +37,6 @@ const handleSyncPayroll = async () => {
   }
 }
 
-// Status style mapping for the badge
 const getStatusConfig = (status: 'online' | 'offline' | 'on_break') => {
   const configs = {
     online: {
