@@ -1,26 +1,20 @@
-// Example of how the logic translates to Vue
-import { inject, provide, ref, computed } from 'vue'
+import { inject, provide, ref, computed, type InjectionKey, type Ref, type ComputedRef } from 'vue'
 
+// 1. Define the Shape of your Sidebar Context
+export interface SidebarContext {
+    state: ComputedRef<'expanded' | 'collapsed'>
+    open: Ref<boolean>
+    setOpen: (val: boolean) => void
+    isMobile: Ref<boolean>
+    toggleSidebar: () => void
+}
+
+// 2. Create a Type-Safe Injection Key
+export const SidebarKey = Symbol() as InjectionKey<SidebarContext>
+
+// 3. The useSidebar Composable
 export const useSidebar = () => {
-    const context = inject('sidebar-context')
+    const context = inject(SidebarKey)
     if (!context) throw new Error('useSidebar must be used within a SidebarProvider')
     return context
 }
-
-// In the SidebarProvider.vue component:
-const open = ref(true)
-const isMobile = useIsMobile() // Your existing mobile composable
-
-const state = computed(() => open.value ? 'expanded' : 'collapsed')
-
-const toggleSidebar = () => {
-    open.value = !open.value
-}
-
-provide('sidebar-context', {
-    state,
-    open,
-    setOpen: (val) => open.value = val,
-    isMobile,
-    toggleSidebar
-})

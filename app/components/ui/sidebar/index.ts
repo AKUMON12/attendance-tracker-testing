@@ -48,7 +48,7 @@ export const SidebarProvider = defineComponent({
       if (typeof window === 'undefined') return false
       return window.innerWidth < 768
     })
-    
+
     const openMobile = ref(false)
     const _open = ref(props.defaultOpen)
     const open = computed(() => props.open !== undefined ? props.open : _open.value)
@@ -59,8 +59,8 @@ export const SidebarProvider = defineComponent({
     }
 
     const toggleSidebar = () => {
-      return isMobile.value 
-        ? (openMobile.value = !openMobile.value) 
+      return isMobile.value
+        ? (openMobile.value = !openMobile.value)
         : setOpen(!open.value)
     }
 
@@ -113,6 +113,42 @@ export const sidebarMenuButtonVariants = cva(
     },
   }
 )
+
+/* ===============================
+    SidebarInset & SidebarTrigger
+   =============================== */
+export const SidebarInset = defineComponent({
+  setup(_, { slots, attrs }) {
+    return () => h('main', {
+      class: cn(
+        "relative flex min-h-svh flex-1 flex-col bg-background",
+        "peer-data-[variant=inset]:min-h-[calc(100svh-theme(spacing.4))] md:peer-data-[variant=inset]:m-2 md:peer-data-[state=collapsed]:peer-data-[variant=inset]:ml-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow",
+        attrs.class as string
+      )
+    }, slots.default?.())
+  }
+})
+
+export const SidebarTrigger = defineComponent({
+  setup(_, { attrs }) {
+    const { toggleSidebar } = useSidebar()
+    return () => h('button', {
+      'data-sidebar': 'trigger',
+      variant: 'ghost',
+      size: 'icon',
+      class: cn('h-7 w-7', attrs.class as string),
+      onClick: (e: MouseEvent) => {
+        toggleSidebar()
+      }
+    }, [
+      h('svg', { xmlns: 'http://www.w3.org/2000/svg', width: '24', height: '24', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2', 'stroke-linecap': 'round', 'stroke-linejoin': 'round', class: 'h-4 w-4' }, [
+        h('path', { d: 'M21 3H3v18h18V3z' }),
+        h('path', { d: 'M9 3v18' })
+      ]),
+      h('span', { class: 'sr-only' }, 'Toggle Sidebar')
+    ])
+  }
+})
 
 /* ===============================
     Helper Components (Static)

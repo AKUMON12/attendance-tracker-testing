@@ -1,11 +1,11 @@
 import { ref } from "vue"
 
-interface Toast {
+export interface ToastProps {
   id: string
   title?: string
   description?: string
   action?: any
-  variant?: "default" | "destructive"
+  variant?: 'default' | 'destructive' | 'success';
 }
 
 const toasts = ref<Toast[]>([])

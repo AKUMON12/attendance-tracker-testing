@@ -1,9 +1,10 @@
 <script setup lang="ts">
-// Nuxt auto-imports these if they are in components/layout/ or components/ui/
-// But we'll be explicit for clarity
 import AppSidebar from '@/components/layout/AppSidebar.vue'
 import AppHeader from '@/components/layout/AppHeader.vue'
-import { SidebarProvider, SidebarInset } from '../components/ui/sidebar/SidebarTrigger.vue'
+
+// Import from the folder index or the specific files
+// If you followed standard shadcn-vue CLI install, it's usually:
+import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar'
 </script>
 
 <template>

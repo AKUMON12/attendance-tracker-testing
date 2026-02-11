@@ -8,9 +8,13 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function valueUpdater<T extends Updater<any>>(updaterOrValue: T, ref: Ref) {
+/**
+ * Standard TanStack Table utility to update a Vue Ref 
+ * with either a raw value or a functional updater.
+ */
+export function valueUpdater<T>(updaterOrValue: Updater<T>, ref: Ref<T>) {
   ref.value
     = typeof updaterOrValue === "function"
-      ? updaterOrValue(ref.value)
+      ? (updaterOrValue as (prev: T) => T)(ref.value)
       : updaterOrValue
 }
