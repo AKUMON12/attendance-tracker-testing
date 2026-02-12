@@ -30,7 +30,6 @@ export default defineNuxtConfig({
   components: [
     {
       path: '~/components/ui',
-      // This ensures components are registered properly
       extensions: ['.vue'],
       pathPrefix: false,
       global: true,

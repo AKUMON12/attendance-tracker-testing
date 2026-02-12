@@ -13,17 +13,19 @@ export const useAuth = () => {
     const user = useState<User | null>('auth_user', () => null)
     const isLoading = useState<boolean>('auth_loading', () => true)
 
-    // Restore session on mount
+    // Restore session on mount (client-side only)
     onMounted(() => {
-        const token = localStorage.getItem('auth_token')
-        const storedUser = localStorage.getItem('user')
+        if (process.client) {
+            const token = localStorage.getItem('auth_token')
+            const storedUser = localStorage.getItem('user')
 
-        if (token && storedUser) {
-            try {
-                user.value = JSON.parse(storedUser)
-            } catch {
-                localStorage.removeItem('auth_token')
-                localStorage.removeItem('user')
+            if (token && storedUser) {
+                try {
+                    user.value = JSON.parse(storedUser)
+                } catch {
+                    localStorage.removeItem('auth_token')
+                    localStorage.removeItem('user')
+                }
             }
         }
         isLoading.value = false
@@ -44,14 +46,16 @@ export const useAuth = () => {
             const mockUser: User = {
                 id: '1',
                 email,
-                name: email.split('@')[0],
+                name: email.split('@')[0] || email,
                 role: email.includes('admin') ? 'admin' : 'user'
             }
 
             const mockToken = 'mock_jwt_token_' + Date.now()
 
-            localStorage.setItem('auth_token', mockToken)
-            localStorage.setItem('user', JSON.stringify(mockUser))
+            if (process.client) {
+                localStorage.setItem('auth_token', mockToken)
+                localStorage.setItem('user', JSON.stringify(mockUser))
+            }
             user.value = mockUser
         } finally {
             isLoading.value = false
@@ -79,8 +83,10 @@ export const useAuth = () => {
 
             const mockToken = 'mock_jwt_token_' + Date.now()
 
-            localStorage.setItem('auth_token', mockToken)
-            localStorage.setItem('user', JSON.stringify(mockUser))
+            if (process.client) {
+                localStorage.setItem('auth_token', mockToken)
+                localStorage.setItem('user', JSON.stringify(mockUser))
+            }
             user.value = mockUser
         } finally {
             isLoading.value = false
@@ -89,8 +95,10 @@ export const useAuth = () => {
 
     // Logout
     const logout = () => {
-        localStorage.removeItem('auth_token')
-        localStorage.removeItem('user')
+        if (process.client) {
+            localStorage.removeItem('auth_token')
+            localStorage.removeItem('user')
+        }
         user.value = null
     }
 

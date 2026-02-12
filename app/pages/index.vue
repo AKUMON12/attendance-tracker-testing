@@ -1,17 +1,20 @@
 <script setup lang="ts">
 import { Loader2 } from 'lucide-vue-next'
 
-// 1. Inline Middleware for instant redirect
+// 1. Inline Middleware for instant redirect (client-side only)
 definePageMeta({
   middleware: [
     function (to, from) {
-      const { isAuthenticated } = useAuth()
-      
-      // If we already know the status, redirect immediately
-      if (isAuthenticated.value) {
-        return navigateTo('/attendance')
-      } else {
-        return navigateTo('/login')
+      // Only run middleware on client side
+      if (process.client) {
+        const { isAuthenticated } = useAuth()
+        
+        // If we already know the status, redirect immediately
+        if (isAuthenticated.value) {
+          return navigateTo('/attendance')
+        } else {
+          return navigateTo('/login')
+        }
       }
     },
   ],
@@ -21,7 +24,7 @@ const { isAuthenticated, isLoading } = useAuth()
 
 // 2. Watcher for auth status (if isLoading changes after mount)
 watchEffect(() => {
-  if (!isLoading.value) {
+  if (process.client && !isLoading.value) {
     if (isAuthenticated.value) {
       navigateTo('/attendance')
     } else {
