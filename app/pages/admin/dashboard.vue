@@ -23,10 +23,9 @@ const {
 
 const isSyncing = ref(false)
 
-onMounted(() => {
-  fetchUsersStatus()
-  fetchStats()
-})
+// Fetch data when component loads
+fetchUsersStatus()
+fetchStats()
 
 const handleSyncPayroll = async () => {
   isSyncing.value = true

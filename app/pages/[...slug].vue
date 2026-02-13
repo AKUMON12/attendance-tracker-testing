@@ -2,10 +2,10 @@
 // Nuxt equivalent of useLocation()
 const route = useRoute()
 
-// useEffect equivalent
-onMounted(() => {
+// Log error only on client side
+if (process.client) {
   console.error("404 Error: User attempted to access non-existent route:", route.path)
-})
+}
 </script>
 
 <template>

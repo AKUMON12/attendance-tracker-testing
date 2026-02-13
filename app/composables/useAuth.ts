@@ -1,5 +1,4 @@
 // app/composables/useAuth.ts
-import { useFetch } from '#app'
 
 interface User {
     id: string
@@ -13,23 +12,24 @@ export const useAuth = () => {
     const user = useState<User | null>('auth_user', () => null)
     const isLoading = useState<boolean>('auth_loading', () => true)
 
-    // Restore session on mount (client-side only)
-    onMounted(() => {
-        if (process.client) {
-            const token = localStorage.getItem('auth_token')
-            const storedUser = localStorage.getItem('user')
+    // Restore session on client-side
+    if (process.client) {
+        const token = localStorage.getItem('auth_token')
+        const storedUser = localStorage.getItem('user')
 
-            if (token && storedUser) {
-                try {
-                    user.value = JSON.parse(storedUser)
-                } catch {
-                    localStorage.removeItem('auth_token')
-                    localStorage.removeItem('user')
-                }
+        if (token && storedUser) {
+            try {
+                user.value = JSON.parse(storedUser)
+            } catch {
+                localStorage.removeItem('auth_token')
+                localStorage.removeItem('user')
             }
         }
         isLoading.value = false
-    })
+    } else {
+        // For SSR, set loading to false immediately
+        isLoading.value = false
+    }
 
     // Login
     const login = async (email: string, password: string) => {

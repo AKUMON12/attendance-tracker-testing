@@ -85,7 +85,9 @@ export default {
     			md: 'calc(var(--radius) - 2px)',
     			sm: 'calc(var(--radius) - 4px)',
     			xl: 'calc(var(--radius) + 4px)',
-    			'2xl': 'calc(var(--radius) + 8px)'
+    			'2xl': 'calc(var(--radius) + 8px)',
+    			'3xl': '1.5rem',
+    			'4xl': '2rem'
     		},
     		fontFamily: {
     			sans: [
@@ -117,7 +119,7 @@ export default {
     					height: '0'
     				}
     			},
-    			'fade-in': {
+    			fadeIn: {
     				'0%': {
     					opacity: '0',
     					transform: 'translateY(10px)'
@@ -127,17 +129,7 @@ export default {
     					transform: 'translateY(0)'
     				}
     			},
-    			'fade-out': {
-    				'0%': {
-    					opacity: '1',
-    					transform: 'translateY(0)'
-    				},
-    				'100%': {
-    					opacity: '0',
-    					transform: 'translateY(10px)'
-    				}
-    			},
-    			'scale-in': {
+    			scaleIn: {
     				'0%': {
     					transform: 'scale(0.95)',
     					opacity: '0'
@@ -147,12 +139,24 @@ export default {
     					opacity: '1'
     				}
     			},
-    			'slide-in-right': {
+    			slideUp: {
     				'0%': {
-    					transform: 'translateX(100%)'
+    					opacity: '0',
+    					transform: 'translateY(20px)'
     				},
     				'100%': {
-    					transform: 'translateX(0)'
+    					opacity: '1',
+    					transform: 'translateY(0)'
+    				}
+    			},
+    			pulseGlow: {
+    				'0%, 100%': {
+    					opacity: '1',
+    					boxShadow: '0 0 20px hsl(var(--skloud-blue) / 0.4)'
+    				},
+    				'50%': {
+    					opacity: '0.8',
+    					boxShadow: '0 0 30px hsl(var(--skloud-blue) / 0.6)'
     				}
     			},
     			'mesh-wave': {
@@ -203,10 +207,10 @@ export default {
     		animation: {
     			'accordion-down': 'accordion-down 0.2s ease-out',
     			'accordion-up': 'accordion-up 0.2s ease-out',
-    			'fade-in': 'fade-in 0.3s ease-out',
-    			'fade-out': 'fade-out 0.3s ease-out',
-    			'scale-in': 'scale-in 0.2s ease-out',
-    			'slide-in-right': 'slide-in-right 0.3s ease-out',
+    			'fade-in': 'fadeIn 0.5s ease-out',
+    			'scale-in': 'scaleIn 0.3s ease-out',
+    			'slide-up': 'slideUp 0.4s ease-out',
+    			'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
     			'mesh-wave': 'mesh-wave 15s ease-in-out infinite',
     			'mesh-wave-reverse': 'mesh-wave-reverse 18s ease-in-out infinite',
     			pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
@@ -214,5 +218,5 @@ export default {
     		}
     	}
     },
-    plugins: [tailwindcssAnimate, require("tailwindcss-animate")], // 2. Change require() to the variable name
+    plugins: [tailwindcssAnimate], // 2. Change require() to the variable name
 } satisfies Config

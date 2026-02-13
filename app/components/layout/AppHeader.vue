@@ -1,8 +1,5 @@
 <script setup lang="ts">
 import { Bell, Search } from "lucide-vue-next"
-// REMOVED: import { SidebarTrigger } from "@/components/ui/sidebar" 
-// REMOVED: import Input from "@/components/ui/input/Input.vue"
-// REMOVED: import Button from "@/components/ui/button/Button.vue"
 import { useNow, useDateFormat } from '@vueuse/core'
 
 const now = useNow()
@@ -12,29 +9,27 @@ const formattedTime = useDateFormat(now, 'hh:mm A')
 
 <template>
   <header
-    class="sticky top-0 z-40 flex items-center justify-between h-16 px-4 border-b border-border bg-background/80 backdrop-blur-sm"
+    class="sticky top-0 z-40 flex items-center justify-between h-20 px-6 border-b border-border bg-card/50 backdrop-blur-sm"
   >
-    <div class="flex items-center gap-4">
-      <SidebarTrigger class="p-2 hover:bg-muted rounded-lg transition-colors" />
-
+    <div class="flex items-center gap-6">
       <div class="hidden md:flex relative">
-        <Search class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-        <Input
+        <Search class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+        <input
           type="search"
-          placeholder="Search..."
-          class="w-64 pl-10 bg-muted/50 border-transparent focus:border-primary"
+          placeholder="Search anything..."
+          class="w-80 pl-12 pr-4 py-3 bg-background/50 border border-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200"
         />
       </div>
     </div>
 
-    <div class="flex items-center gap-2">
-      <Button variant="ghost" size="icon" class="relative">
-        <Bell class="w-5 h-5" />
-        <span class="absolute top-1 right-1 w-2 h-2 bg-destructive rounded-full" />
-      </Button>
+    <div class="flex items-center gap-4">
+      <button class="relative p-3 hover:bg-accent/50 rounded-2xl transition-all duration-200 group">
+        <Bell class="w-5 h-5 group-hover:scale-110 transition-transform" />
+        <span class="absolute top-2 right-2 w-2 h-2 bg-gradient-to-r from-skloud-yellow to-skloud-pink rounded-full animate-pulse"></span>
+      </button>
 
       <div class="hidden sm:block text-right">
-        <p class="text-sm font-medium">{{ formattedDate }}</p>
+        <p class="text-sm font-medium text-foreground">{{ formattedDate }}</p>
         <p class="text-xs text-muted-foreground">{{ formattedTime }}</p>
       </div>
     </div>

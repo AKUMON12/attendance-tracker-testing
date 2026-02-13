@@ -5,20 +5,24 @@ export const useIsMobile = () => {
     const isMobile = ref(false)
 
     const update = () => {
-        isMobile.value = window.innerWidth < MOBILE_BREAKPOINT
+        if (process.client) {
+            isMobile.value = window.innerWidth < MOBILE_BREAKPOINT
+        }
     }
 
-    onMounted(() => {
+    // Initialize on client
+    if (process.client) {
         const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`)
         update()
         mql.addEventListener('change', update)
         window.addEventListener('resize', update)
 
+        // Cleanup on component unmount
         onUnmounted(() => {
             mql.removeEventListener('change', update)
             window.removeEventListener('resize', update)
         })
-    })
+    }
 
     return isMobile
 }

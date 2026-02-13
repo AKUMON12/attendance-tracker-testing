@@ -14,8 +14,11 @@ function handleMouseMove(e: MouseEvent) {
   mousePosition.y = (e.clientY - rect.top) / rect.height
 }
 
-onMounted(() => window.addEventListener("mousemove", handleMouseMove))
-onUnmounted(() => window.removeEventListener("mousemove", handleMouseMove))
+// Add event listeners only on client side
+if (process.client) {
+  onMounted(() => window.addEventListener("mousemove", handleMouseMove))
+  onUnmounted(() => window.removeEventListener("mousemove", handleMouseMove))
+}
 
 function getTransform(intensity: number, reverse = false) {
   const xOffset = (mousePosition.x - 0.5) * intensity * (reverse ? -1 : 1)
